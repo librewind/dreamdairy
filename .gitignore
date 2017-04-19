@@ -3,3 +3,8 @@
 .env
 /public/storage
 /bootstrap/cache
+/node_modules
+/public/hot
+/storage/*.key
+Homestead.json
+Homestead.yaml

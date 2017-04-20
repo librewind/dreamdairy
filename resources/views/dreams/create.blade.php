@@ -17,17 +17,19 @@
 
         {{ Form::open(array('url' => 'dreams')) }}
 
-        <div class="form-group">
-            {{ Form::label('title', 'Заголовок') }}
-            {{ Form::text('title', old('title'), array('class' => 'form-control')) }}
-        </div>
+            {{  Form::hidden('user_id', Auth::user()->getId()) }}
 
-        <div class="form-group">
-            {{ Form::label('body', 'Содержимое') }}
-            {{ Form::textarea('body', old('body'), array('class' => 'form-control')) }}
-        </div>
+            <div class="form-group">
+                {{ Form::label('title', 'Заголовок') }}
+                {{ Form::text('title', old('title'), array('class' => 'form-control')) }}
+            </div>
 
-        {{ Form::submit('Добавить сон', array('class' => 'btn btn-primary')) }}
+            <div class="form-group">
+                {{ Form::label('body', 'Содержимое') }}
+                {{ Form::textarea('body', old('body'), array('class' => 'form-control')) }}
+            </div>
+
+            {{ Form::submit('Добавить сон', array('class' => 'btn btn-primary')) }}
 
         {{ Form::close() }}
 

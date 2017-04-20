@@ -30,6 +30,12 @@ class User implements \Illuminate\Contracts\Auth\Authenticatable
      */
     protected $email;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Dream", mappedBy="user", cascade={"persist"})
+     * @var ArrayCollection|Dream[]
+     */
+    protected $dreams;
+
     public function __construct($input)
     {
         $this->setName($input['name']);
@@ -37,6 +43,11 @@ class User implements \Illuminate\Contracts\Auth\Authenticatable
         $this->setEmail($input['email']);
 
         $this->setPassword($input['password']);
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 
     public function getName()
@@ -57,5 +68,19 @@ class User implements \Illuminate\Contracts\Auth\Authenticatable
     public function setEmail($email)
     {
         $this->email = $email;
+    }
+
+    public function addDream(Dream $dream)
+    {
+        if (! $this->dreams->contains($dream)) {
+            $dream->setScientist($this);
+
+            $this->dreams->add($dream);
+        }
+    }
+
+    public function getDreams()
+    {
+        return $this->dreams;
     }
 }

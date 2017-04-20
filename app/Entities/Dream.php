@@ -28,6 +28,12 @@ class Dream
      */
     private $body;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="dreams")
+     * @var User
+     */
+    protected $user;
+
     public function __construct($input)
     {
         $this->setTitle($input['title']);
@@ -58,5 +64,15 @@ class Dream
     public function setBody($body)
     {
         $this->body = $body;
+    }
+
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+    }
+
+    public function getUser()
+    {
+        return $this->user;
     }
 }

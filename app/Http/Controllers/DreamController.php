@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use EntityManager;
 use App\Http\Requests\StoreDreamRequest;
 use App\Repositories\DreamRepository;
+use App\Repositories\UserRepository;
 use App\Entities\Dream;
 
 class DreamController extends Controller
@@ -14,6 +15,8 @@ class DreamController extends Controller
     public function __construct(DreamRepository $dreams)
     {
         $this->dreams = $dreams;
+
+        $this->middleware('auth');
     }
 
     /**
@@ -46,12 +49,16 @@ class DreamController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreDreamRequest $request)
+    public function store(StoreDreamRequest $request, UserRepository $users)
     {
         $dream = new Dream([
             'title' => $request->input('title'),
             'body'  => $request->input('body'),
         ]);
+
+        $user = $users->find($request->input('user_id'));
+
+        $dream->setUser($user);
 
         EntityManager::persist($dream);
 

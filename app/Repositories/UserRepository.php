@@ -2,11 +2,11 @@
 
 namespace App\Repositories;
 
-interface DreamRepository
+interface UserRepository
 {
     public function findAll();
 
     public function find($id);
 
-    public function findByTitle($title);
+    public function findByName($name);
 }

@@ -7,11 +7,6 @@
                 <div class="panel-heading">{{ __('common.edit') }}</div>
 
                 <div class="panel-body">
-                    <div class="btn-group">
-                        <a class="btn btn-small btn-default" href="{{ URL::to('dreams') }}">{{ __('dreams.all') }}</a>
-                    </div>
-                    <br>
-                    <br>
                     {{ Html::ul($errors->all()) }}
 
                     {{ Form::model($dream, ['method' => 'PATCH', 'action' => ['DreamController@update', $dream->getId()]]) }}

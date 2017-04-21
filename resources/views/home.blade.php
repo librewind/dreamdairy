@@ -7,12 +7,6 @@
             <div class="panel-heading">{{ __('dreams.recent') }}</div>
 
             <div class="panel-body">
-                <div class="btn-group">
-                    <a class="btn btn-small btn-default" href="{{ URL::to('dreams') }}">{{ __('dreams.all') }}</a>
-                    <a class="btn btn-small btn-default" href="{{ URL::to('dreams') }}">{{ __('dreams.my') }}</a>
-                </div>
-                <br>
-                <br>
                 <table class="table table-striped table-bordered">
                     <thead>
                     <tr>

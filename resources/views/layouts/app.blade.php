@@ -43,7 +43,8 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        <li class="{{ Route::currentRouteName() == 'home' ? 'active' : '' }}"><a href="{{ URL::to('home') }}">Главная <span class="sr-only">(current)</span></a></li>
+                        <li class="{{ Route::currentRouteName() == 'dreams.index' ? 'active' : '' }}"><a href="{{ URL::to('dreams') }}">Мои сны</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

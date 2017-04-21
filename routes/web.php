@@ -15,7 +15,7 @@ Auth::routes();
 
 // Главная
 Route::get('/',     'HomeController@index');
-Route::get('/home', 'HomeController@index');
+Route::get('/home', 'HomeController@index')->name('home');
 
 // Профиль
 Route::get(                    'profile',      'ProfileController@show');

@@ -12,7 +12,6 @@
                         <tr>
                             <td>{{ __('common.title') }}</td>
                             <td>{{ __('common.date') }}</td>
-                            <td>{{ __('dreams.dreamer') }}</td>
                             <td></td>
                         </tr>
                         </thead>
@@ -21,7 +20,6 @@
                                 <tr>
                                     <td><a href="{{ url('dreams', [$dream->getId()]) }}">{{ $dream->getTitle() }}</a></td>
                                     <td>{{ $dream->getCreated()->format('d.m.Y') }}</td>
-                                    <td>{{ $dream->getUser()->getName() }}</td>
                                     <td>
                                         {{ Form::open(['url' => 'dreams/' . $dream->getId(), 'class' => 'pull-right']) }}
                                             <a class="btn btn-small btn-info" href="{{ URL::to('dreams/' . $dream->getId() . '/edit') }}">{{ __('common.edit') }}</a>

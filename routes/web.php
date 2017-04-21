@@ -13,8 +13,14 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index');
-
+// Главная
+Route::get('/',     'HomeController@index');
 Route::get('/home', 'HomeController@index');
 
+// Профиль
+Route::get(                    'profile',      'ProfileController@show');
+Route::get(                    'profile/edit', 'ProfileController@edit');
+Route::match(['put', 'patch'], 'profile',      'ProfileController@update');
+
+// Сны
 Route::resource('dreams', 'DreamController');

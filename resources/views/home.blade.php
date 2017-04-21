@@ -25,7 +25,7 @@
                     @foreach ($dreams as $dream)
                         <tr>
                             <td><a href="{{ url('dreams', [$dream->getId()]) }}">{{ $dream->getTitle() }}</a></td>
-                            <td></td>
+                            <td>{{ $dream->getCreated()->format('d.m.Y') }}</td>
                             <td>{{ $dream->getUser()->getName() }}</td>
                         </tr>
                     @endforeach

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Repositories\DreamRepository;
 
 class HomeController extends Controller
 {
@@ -21,8 +22,12 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(DreamRepository $dreams)
     {
-        return view('home');
+        $dreams = $dreams->findAll();
+
+        return view('home', [
+            'dreams' => $dreams,
+        ]);
     }
 }

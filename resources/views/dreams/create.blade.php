@@ -2,36 +2,37 @@
 
 @section('content')
     <div class="container">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">{{ __('dreams.new') }}</div>
 
-        <nav class="navbar">
-            <ul class="nav navbar-nav">
-                <li><a href="{{ URL::to('dreams') }}">Все сны</a></li>
-                <li><a href="{{ URL::to('dreams/create') }}">Добавить сон</a>
-            </ul>
-        </nav>
+                <div class="panel-body">
+                    <div class="btn-group">
+                        <a class="btn btn-small btn-default" href="{{ URL::to('dreams') }}">{{ __('dreams.all') }}</a>
+                    </div>
+                    <br>
+                    <br>
+                    {{ Html::ul($errors->all()) }}
 
-        <h1>Новый сон</h1>
+                    {{ Form::open(['url' => 'dreams']) }}
 
-        <!-- if there are creation errors, they will show here -->
-        {{ Html::ul($errors->all()) }}
+                        {{  Form::hidden('user_id', Auth::user()->getId()) }}
 
-        {{ Form::open(array('url' => 'dreams')) }}
+                        <div class="form-group">
+                            {{ Form::label('title', __('common.title')) }}
+                            {{ Form::text('title', old('title'), ['class' => 'form-control', 'autofocus' => 'autofocus']) }}
+                        </div>
 
-            {{  Form::hidden('user_id', Auth::user()->getId()) }}
+                        <div class="form-group">
+                            {{ Form::label('body', __('common.content')) }}
+                            {{ Form::textarea('body', old('body'), ['class' => 'form-control']) }}
+                        </div>
 
-            <div class="form-group">
-                {{ Form::label('title', 'Заголовок') }}
-                {{ Form::text('title', old('title'), array('class' => 'form-control')) }}
+                        {{ Form::submit(__('dreams.add'), ['class' => 'btn btn-primary']) }}
+
+                    {{ Form::close() }}
+                </div>
             </div>
-
-            <div class="form-group">
-                {{ Form::label('body', 'Содержимое') }}
-                {{ Form::textarea('body', old('body'), array('class' => 'form-control')) }}
-            </div>
-
-            {{ Form::submit('Добавить сон', array('class' => 'btn btn-primary')) }}
-
-        {{ Form::close() }}
-
+        </div>
     </div>
 @endsection

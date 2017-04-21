@@ -2,33 +2,37 @@
 
 @section('content')
     <div class="container">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">{{ __('common.edit') }}</div>
 
-        <nav class="navbar">
-            <ul class="nav navbar-nav">
-                <li><a href="{{ URL::to('dreams') }}">Все сны</a></li>
-            </ul>
-        </nav>
+                <div class="panel-body">
+                    <div class="btn-group">
+                        <a class="btn btn-small btn-default" href="{{ URL::to('dreams') }}">{{ __('dreams.all') }}</a>
+                    </div>
+                    <br>
+                    <br>
+                    {{ Html::ul($errors->all()) }}
 
-        <h1>{{ $dream->getTitle() }}</h1>
+                    {{ Form::model($dream, ['method' => 'PATCH', 'action' => ['DreamController@update', $dream->getId()]]) }}
 
-        <!-- if there are creation errors, they will show here -->
-        {{ Html::ul($errors->all()) }}
+                    {{  Form::hidden('user_id', Auth::user()->getId()) }}
 
-        {{ Form::model($dream, ['method' => 'PATCH', 'action' => ['DreamController@update', $dream->getId()]]) }}
+                    <div class="form-group">
+                        {{ Form::label('title', __('common.title')) }}
+                        {{ Form::text('title', $dream->getTitle(), ['class' => 'form-control', 'autofocus' => 'autofocus']) }}
+                    </div>
 
-        <div class="form-group">
-            {{ Form::label('title', 'Заголовок') }}
-            {{ Form::text('title', $dream->getTitle(), array('class' => 'form-control')) }}
+                    <div class="form-group">
+                        {{ Form::label('body', __('common.content')) }}
+                        {{ Form::textarea('body', $dream->getBody(), ['class' => 'form-control']) }}
+                    </div>
+
+                    {{ Form::submit(__('common.edit2'), ['class' => 'btn btn-primary']) }}
+
+                    {{ Form::close() }}
+                </div>
+            </div>
         </div>
-
-        <div class="form-group">
-            {{ Form::label('body', 'Содержание') }}
-            {{ Form::textarea('body', $dream->getBody(), array('class' => 'form-control')) }}
-        </div>
-
-        {{ Form::submit('Редактировать', array('class' => 'btn btn-primary')) }}
-
-        {{ Form::close() }}
-
     </div>
 @endsection

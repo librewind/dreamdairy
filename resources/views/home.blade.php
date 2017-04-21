@@ -3,13 +3,34 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+        <div class="panel panel-default">
+            <div class="panel-heading">{{ __('dreams.recent') }}</div>
 
-                <div class="panel-body">
-                    You are logged in!
+            <div class="panel-body">
+                <div class="btn-group">
+                    <a class="btn btn-small btn-default" href="{{ URL::to('dreams') }}">{{ __('dreams.all') }}</a>
+                    <a class="btn btn-small btn-default" href="{{ URL::to('dreams') }}">{{ __('dreams.my') }}</a>
                 </div>
+                <br>
+                <br>
+                <table class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <td>{{ __('common.title') }}</td>
+                        <td>{{ __('common.date') }}</td>
+                        <td>{{ __('dreams.dreamer') }}</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach ($dreams as $dream)
+                        <tr>
+                            <td><a href="{{ url('dreams', [$dream->getId()]) }}">{{ $dream->getTitle() }}</a></td>
+                            <td></td>
+                            <td>{{ $dream->getUser()->getName() }}</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

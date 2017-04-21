@@ -26,7 +26,7 @@ class DreamController extends Controller
      */
     public function index()
     {
-        $dreams = $this->dreams->findAll();
+        $dreams = $this->dreams->paginateAll(10);
 
         return view('dreams.index', [
             'dreams' => $dreams,

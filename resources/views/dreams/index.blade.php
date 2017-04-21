@@ -33,7 +33,10 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <a class="btn btn-small btn-success" href="{{ URL::to('dreams/create') }}">{{ __('common.add') }}</a>
+                    {{ $dreams->links() }}
+                    <div>
+                        <a class="btn btn-small btn-success" href="{{ URL::to('dreams/create') }}">{{ __('common.add') }}</a>
+                    </div>
                 </div>
             </div>
         </div>

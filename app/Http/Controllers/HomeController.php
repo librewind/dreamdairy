@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index(DreamRepository $dreams)
     {
-        $dreams = $dreams->findAll();
+        $dreams = $dreams->paginateAll(5);
 
         return view('home', [
             'dreams' => $dreams,

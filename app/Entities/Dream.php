@@ -59,11 +59,22 @@ class Dream
      */
     private $contentChanged;
 
-    public function __construct($input)
+    public function __construct($input = null)
     {
-        $this->setTitle($input['title']);
+        if (is_array($input)) {
+            $this->setTitle($input['title']);
 
-        $this->setBody($input['body']);
+            $this->setBody($input['body']);
+        }
+    }
+
+    public function whitelist()
+    {
+        return [
+            'title',
+            'body',
+            'user',
+        ];
     }
 
     public function getId()

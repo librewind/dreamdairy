@@ -6,5 +6,6 @@
 /node_modules
 /public/hot
 /storage/*.key
+/storage/proxies
 Homestead.json
 Homestead.yaml

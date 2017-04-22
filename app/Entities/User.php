@@ -36,13 +36,24 @@ class User implements \Illuminate\Contracts\Auth\Authenticatable
      */
     protected $dreams;
 
-    public function __construct($input)
+    public function __construct($input = null)
     {
-        $this->setName($input['name']);
+        if (is_array($input)) {
+            $this->setName($input['name']);
 
-        $this->setEmail($input['email']);
+            $this->setEmail($input['email']);
 
-        $this->setPassword($input['password']);
+            $this->setPassword($input['password']);
+        }
+    }
+
+    public function whitelist()
+    {
+        return [
+            'name',
+            'email',
+            'password',
+        ];
     }
 
     public function getId()

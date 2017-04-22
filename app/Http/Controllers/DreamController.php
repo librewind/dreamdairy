@@ -6,7 +6,6 @@ use EntityManager;
 use App\Http\Requests\StoreDreamRequest;
 use App\Repositories\DreamRepository;
 use App\Repositories\UserRepository;
-use App\Entities\Dream;
 
 class DreamController extends Controller
 {
@@ -51,18 +50,15 @@ class DreamController extends Controller
      */
     public function store(StoreDreamRequest $request, UserRepository $users)
     {
-        $dream = new Dream([
-            'title' => $request->input('title'),
-            'body'  => $request->input('body'),
-        ]);
-
         $user = $users->find($request->input('user_id'));
 
-        $dream->setUser($user);
+        $dream = $this->dreams->create([
+            'title' => $request->input('title'),
+            'body'  => $request->input('body'),
+            'user'  => $user,
+        ]);
 
-        EntityManager::persist($dream);
-
-        EntityManager::flush();
+        $this->dreams->save($dream);
 
         return redirect('dreams');
     }
@@ -106,15 +102,12 @@ class DreamController extends Controller
      */
     public function update(StoreDreamRequest $request, $id)
     {
-        $dream = $this->dreams->find($id);
+        $dream = $this->dreams->update([
+            'title' => $request->input('title'),
+            'body'  => $request->input('body'),
+        ], $id);
 
-        $dream->setTitle($request->input('title'));
-
-        $dream->setBody($request->input('body'));
-
-        EntityManager::persist($dream);
-
-        EntityManager::flush();
+        $this->dreams->save($dream);
 
         return redirect('dreams');
     }
@@ -129,9 +122,7 @@ class DreamController extends Controller
     {
         $dream = $this->dreams->find($id);
 
-        EntityManager::remove($dream);
-
-        EntityManager::flush();
+        $this->dreams->delete($dream);
 
         return redirect('dreams');
     }

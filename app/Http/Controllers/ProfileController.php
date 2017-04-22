@@ -5,16 +5,21 @@ namespace App\Http\Controllers;
 use EntityManager;
 use App\Http\Requests\UpdateProfileRequest;
 use Auth;
+use App\Repositories\UserRepository;
 
 class ProfileController extends Controller
 {
+    private $users;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserRepository $users)
     {
+        $this->users = $users;
+
         $this->middleware('auth');
     }
 
@@ -38,13 +43,13 @@ class ProfileController extends Controller
 
     public function update(UpdateProfileRequest $request)
     {
-        $user = Auth::user();
+        $userId = Auth::user()->getId();
 
-        $user->setName($request->input('name'));
+        $user = $this->users->update([
+            'name' => $request->input('name'),
+        ], $userId);
 
-        EntityManager::persist($user);
-
-        EntityManager::flush();
+        $this->users->save($user);
 
         return redirect('profile');
     }

@@ -17,6 +17,8 @@ class DoctrineDreamRepositoryTest extends TestCase
 
     protected static $dream;
 
+    protected static $user;
+
     public function setUp()
     {
         parent::setUp();
@@ -38,7 +40,7 @@ class DoctrineDreamRepositoryTest extends TestCase
 
         $user = $userRepository->create($data);
 
-        $user = $userRepository->save($user);
+        self::$user = $userRepository->save($user);
 
         $data = [
             'title' => $faker->sentence(),
@@ -55,7 +57,7 @@ class DoctrineDreamRepositoryTest extends TestCase
         ]);
     }
 
-    /*public function testUpdateAndSave()
+    public function testUpdateAndSave()
     {
         $faker = \Faker\Factory::create();
 
@@ -68,21 +70,28 @@ class DoctrineDreamRepositoryTest extends TestCase
         self::$dream = $this->repository->save($dream);
 
         $this->assertEquals($data['title'], self::$dream->getTitle());
-    }*/
+    }
 
-    /*public function testFindAll()
+    public function testFindAll()
     {
         $dreams = $this->repository->findAll();
 
         $this->assertContainsOnlyInstancesOf(Dream::class, $dreams);
-    }*/
+    }
 
-    /*public function testDelete()
+    public function testFindAllByUserId()
+    {
+        $dreams = $this->repository->findAllByUserId(self::$user->getId());
+
+        $this->assertContainsOnlyInstancesOf(Dream::class, $dreams);
+    }
+
+    public function testDelete()
     {
         $dream = $this->repository->find(self::$dream->getId());
 
         $result = $this->repository->delete($dream);
 
         $this->assertTrue($result);
-    }*/
+    }
 }

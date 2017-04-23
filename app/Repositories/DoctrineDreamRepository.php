@@ -63,4 +63,11 @@ class DoctrineDreamRepository extends EntityRepository implements DreamRepositor
     {
         return $this->findBy(['title' => $title]);
     }
+
+    public function findAllByUserId($userId, $perPage = 15, $pageName = 'page')
+    {
+        $query = $this->_em->createQuery('SELECT u FROM App\Entities\Dream u WHERE u.user = ' . $userId);
+
+        return $this->paginate($query, $perPage, $pageName);
+    }
 }

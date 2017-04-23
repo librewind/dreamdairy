@@ -4,6 +4,7 @@ namespace App\Entities;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -62,6 +63,8 @@ class User implements \Illuminate\Contracts\Auth\Authenticatable
 
             $this->setPassword($input['password']);
         }
+
+        $this->dreams = new ArrayCollection();
     }
 
     public function whitelist()
@@ -101,7 +104,7 @@ class User implements \Illuminate\Contracts\Auth\Authenticatable
     public function addDream(Dream $dream)
     {
         if (! $this->dreams->contains($dream)) {
-            $dream->setScientist($this);
+            $dream->setUser($this);
 
             $this->dreams->add($dream);
         }
@@ -110,6 +113,11 @@ class User implements \Illuminate\Contracts\Auth\Authenticatable
     public function getDreams()
     {
         return $this->dreams;
+    }
+
+    public function setDreams(ArrayCollection $dreams)
+    {
+        $this->dreams = $dreams;
     }
 
     public function getCreated()

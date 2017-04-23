@@ -16,5 +16,7 @@ interface DreamRepository
 
     public function findAll();
 
+    public function findAllByUserId($userId, $perPage, $pageName);
+
     public function findByTitle($title);
 }

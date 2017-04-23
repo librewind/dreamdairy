@@ -6,6 +6,7 @@ use EntityManager;
 use App\Http\Requests\StoreDreamRequest;
 use App\Repositories\DreamRepository;
 use App\Repositories\UserRepository;
+use Auth;
 
 class DreamController extends Controller
 {
@@ -25,7 +26,9 @@ class DreamController extends Controller
      */
     public function index()
     {
-        $dreams = $this->dreams->paginateAll(10);
+        $userId = Auth::user()->getId();
+
+        $dreams = $this->dreams->findAllByUserId($userId, 10);
 
         return view('dreams.index', [
             'dreams' => $dreams,

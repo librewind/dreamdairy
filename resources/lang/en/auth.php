@@ -7,6 +7,7 @@ return [
     'login2'           => 'Login',
     'register'         => 'Register',
     'register2'        => 'Register',
+    'registered'       => 'Registered',
     'logout'           => 'Logout',
     'name'             => 'Name',
     'email'            => 'E-Mail Address',

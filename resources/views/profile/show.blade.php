@@ -25,6 +25,12 @@
                                 <p class="form-control-static">{{ $user->getEmail() }}</p>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">{{ __('auth.registered') }}</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">{{ $user->getCreated()->format('d.m.Y') }}</p>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

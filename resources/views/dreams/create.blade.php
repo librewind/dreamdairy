@@ -7,11 +7,6 @@
                 <div class="panel-heading">{{ __('dreams.new') }}</div>
 
                 <div class="panel-body">
-                    <div class="btn-group">
-                        <a class="btn btn-small btn-default" href="{{ URL::to('dreams') }}">{{ __('dreams.all') }}</a>
-                    </div>
-                    <br>
-                    <br>
                     {{ Html::ul($errors->all()) }}
 
                     {{ Form::open(['url' => 'dreams']) }}

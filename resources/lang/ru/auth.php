@@ -7,6 +7,7 @@ return [
     'login2'           => 'Войти',
     'register'         => 'Регистрация',
     'register2'        => 'Зарегистрироваться',
+    'registered'       => 'Зарегистрировался',
     'logout'           => 'Выйти',
     'name'             => 'Имя',
     'email'            => 'E-mail',

@@ -172,6 +172,7 @@ return [
          * Laravel Doctrine ORM
          */
         LaravelDoctrine\ORM\DoctrineServiceProvider::class,
+        LaravelDoctrine\ORM\Auth\Passwords\PasswordResetServiceProvider::class,
         LaravelDoctrine\Extensions\GedmoExtensionsServiceProvider::class,
         LaravelDoctrine\Extensions\BeberleiExtensionsServiceProvider::class,
 

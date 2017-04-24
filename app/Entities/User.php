@@ -5,15 +5,23 @@ namespace App\Entities;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use LaravelDoctrine\ORM\Auth\Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use LaravelDoctrine\ORM\Notifications\Notifiable;
+use App\Notifications\ResetPassword;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="users")
  * @ORM\HasLifecycleCallbacks()
  */
-class User implements \Illuminate\Contracts\Auth\Authenticatable
+class User implements AuthenticatableContract, CanResetPasswordContract
 {
-    use \LaravelDoctrine\ORM\Auth\Authenticatable;
+    use Authenticatable;
+    use CanResetPassword;
+    use Notifiable;
 
     /**
      * @ORM\Id
@@ -65,6 +73,17 @@ class User implements \Illuminate\Contracts\Auth\Authenticatable
         }
 
         $this->dreams = new ArrayCollection();
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPassword($token));
     }
 
     public function whitelist()

@@ -23,4 +23,5 @@ Route::get(                    'profile/edit', 'ProfileController@edit');
 Route::match(['put', 'patch'], 'profile',      'ProfileController@update');
 
 // Сны
+Route::get('/dreams/all', 'DreamController@all')->name('allDreams');
 Route::resource('dreams', 'DreamController');

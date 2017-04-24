@@ -129,4 +129,14 @@ class DreamController extends Controller
 
         return redirect('dreams');
     }
+
+
+    public function all()
+    {
+        $dreams = $this->dreams->paginateAll(10);
+
+        return view('dreams.all', [
+            'dreams' => $dreams,
+        ]);
+    }
 }

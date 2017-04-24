@@ -12,4 +12,5 @@ return [
     'profile'  => 'Profile',
     'save'     => 'Save',
     'save2'    => 'Save',
+    'home'     => 'Home',
 ];

@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="panel panel-default">
-                <div class="panel-heading">{{ __('dreams.recent') }}</div>
+                <div class="panel-heading">{{ __('dreams.all') }}</div>
 
                 <div class="panel-body">
                     <table class="table table-striped table-bordered">

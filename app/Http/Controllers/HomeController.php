@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\DreamRepository;
+use Illuminate\View\View;
 
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
+     * Конструктор.
      *
      * @return void
      */
@@ -18,9 +19,10 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Главная страница.
      *
-     * @return \Illuminate\Http\Response
+     * @param  DreamRepository  $dreams
+     * @return View
      */
     public function index(DreamRepository $dreams)
     {

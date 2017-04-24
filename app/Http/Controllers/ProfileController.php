@@ -6,14 +6,17 @@ use EntityManager;
 use App\Http\Requests\UpdateProfileRequest;
 use Auth;
 use App\Repositories\UserRepository;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class ProfileController extends Controller
 {
     private $users;
 
     /**
-     * Create a new controller instance.
+     * Конструктор.
      *
+     * @param  UserRepository  $users
      * @return void
      */
     public function __construct(UserRepository $users)
@@ -23,6 +26,11 @@ class ProfileController extends Controller
         $this->middleware('auth');
     }
 
+    /**
+     * Отдаёт профиль.
+     *
+     * @return View
+     */
     public function show()
     {
         $user = Auth::user();
@@ -32,6 +40,11 @@ class ProfileController extends Controller
         ]);
     }
 
+    /**
+     * Отдаёт профиль для редактирования.
+     *
+     * @return View
+     */
     public function edit()
     {
         $user = Auth::user();
@@ -41,6 +54,12 @@ class ProfileController extends Controller
         ]);
     }
 
+    /**
+     * Редактирует профиль.
+     *
+     * @param  UpdateProfileRequest  $request
+     * @return RedirectResponse
+     */
     public function update(UpdateProfileRequest $request)
     {
         $userId = Auth::user()->getId();

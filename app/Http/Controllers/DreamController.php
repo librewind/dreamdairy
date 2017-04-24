@@ -7,11 +7,19 @@ use App\Http\Requests\StoreDreamRequest;
 use App\Repositories\DreamRepository;
 use App\Repositories\UserRepository;
 use Auth;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class DreamController extends Controller
 {
     private $dreams;
 
+    /**
+     * Конструктор.
+     *
+     * @param  DreamRepository  $dreams
+     * @return void
+     */
     public function __construct(DreamRepository $dreams)
     {
         $this->dreams = $dreams;
@@ -20,15 +28,15 @@ class DreamController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Отдаёт все сны пользователя.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function index()
     {
         $userId = Auth::user()->getId();
 
-        $dreams = $this->dreams->findAllByUserId($userId, 10);
+            $dreams = $this->dreams->findAllByUserId($userId, 10);
 
         return view('dreams.index', [
             'dreams' => $dreams,
@@ -36,9 +44,9 @@ class DreamController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Отдаёт форму для добавления нового сна.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function create()
     {
@@ -46,10 +54,10 @@ class DreamController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Сохраняет новый сон.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  StoreDreamRequest  $request
+     * @return RedirectResponse
      */
     public function store(StoreDreamRequest $request, UserRepository $users)
     {
@@ -67,10 +75,10 @@ class DreamController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Отдаёт сон.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function show($id)
     {
@@ -82,14 +90,18 @@ class DreamController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Отдаёт сон для редактирования.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse|View
      */
     public function edit($id)
     {
         $dream = $this->dreams->find($id);
+
+        if ($dream->getUser()->getId() !== Auth::user()->getId()) {
+            return redirect('dreams');
+        }
 
         return view('dreams.edit', [
             'dream' => $dream,
@@ -97,14 +109,20 @@ class DreamController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Редактирует сон.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  StoreDreamRequest  $request
+     * @param  int                $id
+     * @return RedirectResponse
      */
     public function update(StoreDreamRequest $request, $id)
     {
+        $dream = $this->dreams->find($id);
+
+        if ($dream->getUser()->getId() !== Auth::user()->getId()) {
+            return redirect('dreams');
+        }
+
         $dream = $this->dreams->update([
             'title' => $request->input('title'),
             'body'  => $request->input('body'),
@@ -116,21 +134,27 @@ class DreamController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Удаляет сон.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
     public function destroy($id)
     {
         $dream = $this->dreams->find($id);
 
-        $this->dreams->delete($dream);
+        if ($dream->getUser()->getId() === Auth::user()->getId()) {
+            $this->dreams->delete($dream);
+        }
 
         return redirect('dreams');
     }
 
-
+    /**
+     * Отдаёт все сны и чужие в том числе.
+     *
+     * @return View
+     */
     public function all()
     {
         $dreams = $this->dreams->paginateAll(10);

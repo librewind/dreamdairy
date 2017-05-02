@@ -5,7 +5,7 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App;
-use App\Repositories\UserRepository;
+use App\Repositories\UserRepositoryInterface;
 use App\Entities\User;
 
 class DoctrineUserRepositoryTest extends TestCase
@@ -20,7 +20,7 @@ class DoctrineUserRepositoryTest extends TestCase
     {
         parent::setUp();
 
-        $this->repository = App::make(UserRepository::class);
+        $this->repository = App::make(UserRepositoryInterface::class);
     }
 
     public function testCreateAndSave()

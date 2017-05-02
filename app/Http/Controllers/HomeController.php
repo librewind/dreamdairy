@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Repositories\DreamRepository;
+use App\Repositories\DreamRepositoryInterface;
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -21,10 +21,10 @@ class HomeController extends Controller
     /**
      * Главная страница.
      *
-     * @param  DreamRepository  $dreams
+     * @param  DreamRepositoryInterface  $dreams
      * @return View
      */
-    public function index(DreamRepository $dreams)
+    public function index(DreamRepositoryInterface $dreams)
     {
         $dreams = $dreams->paginateAll(5);
 

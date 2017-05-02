@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use EntityManager;
 use App\Http\Requests\UpdateProfileRequest;
 use Auth;
-use App\Repositories\UserRepository;
+use App\Repositories\UserRepositoryInterface;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 
@@ -16,10 +16,10 @@ class ProfileController extends Controller
     /**
      * Конструктор.
      *
-     * @param  UserRepository  $users
+     * @param  UserRepositoryInterface  $users
      * @return void
      */
-    public function __construct(UserRepository $users)
+    public function __construct(UserRepositoryInterface $users)
     {
         $this->users = $users;
 

@@ -5,7 +5,7 @@ namespace App\Repositories;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\Common\Inflector\Inflector;
 
-class DoctrineUserRepository extends EntityRepository implements UserRepository
+class DoctrineUserRepository extends EntityRepository implements UserRepositoryInterface
 {
     public function create($data)
     {

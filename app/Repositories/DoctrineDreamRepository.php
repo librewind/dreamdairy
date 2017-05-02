@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityRepository;
 use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 use Doctrine\Common\Inflector\Inflector;
 
-class DoctrineDreamRepository extends EntityRepository implements DreamRepository
+class DoctrineDreamRepository extends EntityRepository implements DreamRepositoryInterface
 {
     use PaginatesFromRequest;
 

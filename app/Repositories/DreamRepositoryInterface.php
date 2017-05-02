@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-interface UserRepository
+interface DreamRepositoryInterface
 {
     public function create($data);
 
@@ -16,5 +16,7 @@ interface UserRepository
 
     public function findAll();
 
-    public function findByName($name);
+    public function findAllByUserId($userId, $perPage, $pageName);
+
+    public function findByTitle($title);
 }

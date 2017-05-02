@@ -5,8 +5,8 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App;
-use App\Repositories\DreamRepository;
-use App\Repositories\UserRepository;
+use App\Repositories\DreamRepositoryInterface;
+use App\Repositories\UserRepositoryInterface;
 use App\Entities\Dream;
 
 class DoctrineDreamRepositoryTest extends TestCase
@@ -23,7 +23,7 @@ class DoctrineDreamRepositoryTest extends TestCase
     {
         parent::setUp();
 
-        $this->repository = App::make(DreamRepository::class);
+        $this->repository = App::make(DreamRepositoryInterface::class);
     }
 
     public function testCreateAndSave()
@@ -36,7 +36,7 @@ class DoctrineDreamRepositoryTest extends TestCase
             'password' => bcrypt('123456'),
         ];
 
-        $userRepository = App::make(UserRepository::class);
+        $userRepository = App::make(UserRepositoryInterface::class);
 
         $user = $userRepository->create($data);
 

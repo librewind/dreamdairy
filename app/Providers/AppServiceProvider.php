@@ -4,10 +4,10 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Entities\User;
-use App\Repositories\UserRepository;
+use App\Repositories\UserRepositoryInterface;
 use App\Repositories\DoctrineUserRepository;
 use App\Entities\Dream;
-use App\Repositories\DreamRepository;
+use App\Repositories\DreamRepositoryInterface;
 use App\Repositories\DoctrineDreamRepository;
 
 class AppServiceProvider extends ServiceProvider
@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
         }
 
-        $this->app->bind(UserRepository::class, function($app) {
+        $this->app->bind(UserRepositoryInterface::class, function($app) {
             // This is what Doctrine's EntityRepository needs in its constructor.
             return new DoctrineUserRepository(
                 $app['em'],
@@ -41,7 +41,7 @@ class AppServiceProvider extends ServiceProvider
             );
         });
 
-        $this->app->bind(DreamRepository::class, function($app) {
+        $this->app->bind(DreamRepositoryInterface::class, function($app) {
             // This is what Doctrine's EntityRepository needs in its constructor.
             return new DoctrineDreamRepository(
                 $app['em'],

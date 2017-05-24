@@ -75,6 +75,15 @@ class User implements AuthenticatableContract, CanResetPasswordContract
         $this->dreams = new ArrayCollection();
     }
 
+    public function __get($name)
+    {
+        if (property_exists(self::class, $name) && $name != 'password') {
+            return $this->$name;
+        }
+
+        return null;
+    }
+
     /**
      * Send the password reset notification.
      *

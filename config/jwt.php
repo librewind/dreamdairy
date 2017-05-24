@@ -73,7 +73,7 @@ return [
     |
     */
 
-    'user' => 'App\User',
+    'user' => 'App\Entities\User',
 
     /*
     |--------------------------------------------------------------------------
@@ -133,7 +133,7 @@ return [
         |
         */
 
-        'user' => 'Tymon\JWTAuth\Providers\User\EloquentUserAdapter',
+        'user' => 'App\Support\DoctrineUserAdapter',
 
         /*
         |--------------------------------------------------------------------------

@@ -3,23 +3,24 @@
 namespace App\Http\Controllers\Api\v1;
 
 use Illuminate\Http\Request;
-use App\Repositories\DreamRepositoryInterface;
+use App\Repositories\DreamRepository;
+use App\Entities\Dream;
 
 class DreamController
 {
+    /**
+     * @var DreamRepository
+     */
     private $dreams;
 
     /**
      * Конструктор.
      *
-     * @param  DreamRepositoryInterface  $dreams
-     * @return void
+     * @param  DreamRepository  $dreams
      */
-    public function __construct(DreamRepositoryInterface $dreams)
+    public function __construct(DreamRepository $dreams)
     {
         $this->dreams = $dreams;
-
-        //$this->middleware('auth');
     }
 
     public function index(Request $request)
@@ -38,6 +39,7 @@ class DreamController
 
         $dreams = $this->dreams->findAllByUserId($userId, 10);
 
+        /** @var Dream $dream */
         foreach ($dreams as $dream) {
             $item = [];
 

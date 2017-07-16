@@ -62,6 +62,11 @@ class User implements AuthenticatableContract, CanResetPasswordContract
      */
     private $updated;
 
+    /**
+     * User constructor.
+     *
+     * @param array|null $input
+     */
     public function __construct($input = null)
     {
         if (is_array($input)) {
@@ -75,6 +80,11 @@ class User implements AuthenticatableContract, CanResetPasswordContract
         $this->dreams = new ArrayCollection();
     }
 
+    /**
+     * @param $name
+     *
+     * @return mixed
+     */
     public function __get($name)
     {
         if (property_exists(self::class, $name) && $name != 'password') {
@@ -88,13 +98,15 @@ class User implements AuthenticatableContract, CanResetPasswordContract
      * Send the password reset notification.
      *
      * @param  string  $token
-     * @return void
      */
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPassword($token));
     }
 
+    /**
+     * @return array
+     */
     public function whitelist()
     {
         return [
@@ -104,31 +116,49 @@ class User implements AuthenticatableContract, CanResetPasswordContract
         ];
     }
 
+    /**
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     */
     public function setName($name)
     {
         $this->name = $name;
     }
 
+    /**
+     * @return string
+     */
     public function getEmail()
     {
         return $this->email;
     }
 
+    /**
+     * @param string $email
+     */
     public function setEmail($email)
     {
         $this->email = $email;
     }
 
+    /**
+     * @param Dream $dream
+     */
     public function addDream(Dream $dream)
     {
         if (! $this->dreams->contains($dream)) {
@@ -138,21 +168,33 @@ class User implements AuthenticatableContract, CanResetPasswordContract
         }
     }
 
+    /**
+     * @return Dream[]|ArrayCollection
+     */
     public function getDreams()
     {
         return $this->dreams;
     }
 
+    /**
+     * @param ArrayCollection $dreams
+     */
     public function setDreams(ArrayCollection $dreams)
     {
         $this->dreams = $dreams;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getCreated()
     {
         return $this->created;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getUpdated()
     {
         return $this->updated;

@@ -5,22 +5,28 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App;
-use App\Repositories\UserRepositoryInterface;
+use App\Repositories\UserRepository;
 use App\Entities\User;
 
-class DoctrineUserRepositoryTest extends TestCase
+class UserRepositoryTest extends TestCase
 {
     use DatabaseTransactions;
 
+    /**
+     * @var UserRepository
+     */
     protected $repository;
 
+    /**
+     * @var User
+     */
     protected static $user;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->repository = App::make(UserRepositoryInterface::class);
+        $this->repository = App::make(UserRepository::class);
     }
 
     public function testCreateAndSave()
@@ -33,6 +39,7 @@ class DoctrineUserRepositoryTest extends TestCase
             'password' => bcrypt('123456'),
         ];
 
+        /** @var User $user */
         $user = $this->repository->create($data);
 
         self::$user = $this->repository->save($user);

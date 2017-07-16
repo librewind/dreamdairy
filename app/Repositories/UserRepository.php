@@ -3,25 +3,44 @@
 namespace App\Repositories;
 
 use Doctrine\ORM\EntityRepository;
+use App\Entities\User;
 use Doctrine\Common\Inflector\Inflector;
 
-class DoctrineUserRepository extends EntityRepository implements UserRepositoryInterface
+class UserRepository extends EntityRepository
 {
-    public function create($data)
+    /**
+     * @param array $data
+     *
+     * @return User
+     */
+    public function create(array $data)
     {
         $entity = new $this->_entityName();
 
         return $this->prepare($entity, $data);
     }
 
-    public function update($data, $id)
+    /**
+     * @param array $data
+     * @param int $id
+     *
+     * @return mixed
+     */
+    public function update(array $data, int $id)
     {
+        /** @var User $entity */
         $entity = $this->find($id);
 
         return $this->prepare($entity, $data);
     }
 
-    protected function prepare($entity, $data)
+    /**
+     * @param User $entity
+     * @param array $data
+     *
+     * @return User
+     */
+    protected function prepare(User $entity, array $data)
     {
         $set = 'set';
 
@@ -38,7 +57,12 @@ class DoctrineUserRepository extends EntityRepository implements UserRepositoryI
         return $entity;
     }
 
-    public function save($object)
+    /**
+     * @param User $object
+     *
+     * @return User
+     */
+    public function save(User $object)
     {
         $this->_em->persist($object);
 
@@ -47,7 +71,12 @@ class DoctrineUserRepository extends EntityRepository implements UserRepositoryI
         return $object;
     }
 
-    public function delete($object)
+    /**
+     * @param User $object
+     *
+     * @return bool
+     */
+    public function delete(User $object)
     {
         $this->_em->remove($object);
 
@@ -56,7 +85,12 @@ class DoctrineUserRepository extends EntityRepository implements UserRepositoryI
         return true;
     }
 
-    public function findByName($name)
+    /**
+     * @param string $name
+     *
+     * @return array
+     */
+    public function findByName(string $name)
     {
         return $this->findBy(['name' => $name]);
     }

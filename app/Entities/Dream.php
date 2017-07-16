@@ -59,6 +59,11 @@ class Dream
      */
     private $contentChanged;
 
+    /**
+     * Dream constructor.
+     *
+     * @param array|null $input
+     */
     public function __construct($input = null)
     {
         if (is_array($input)) {
@@ -68,6 +73,9 @@ class Dream
         }
     }
 
+    /**
+     * @return array
+     */
     public function whitelist()
     {
         return [
@@ -77,51 +85,81 @@ class Dream
         ];
     }
 
+    /**
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getTitle()
     {
         return $this->title;
     }
 
+    /**
+     * @param string $title
+     */
     public function setTitle($title)
     {
         $this->title = $title;
     }
 
+    /**
+     * @return string
+     */
     public function getBody()
     {
         return $this->body;
     }
 
+    /**
+     * @param string $body
+     */
     public function setBody($body)
     {
         $this->body = $body;
     }
 
+    /**
+     * @param User $user
+     */
     public function setUser(User $user)
     {
         $this->user = $user;
     }
 
+    /**
+     * @return User
+     */
     public function getUser()
     {
         return $this->user;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getCreated()
     {
         return $this->created;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getUpdated()
     {
         return $this->updated;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getContentChanged()
     {
         return $this->contentChanged;

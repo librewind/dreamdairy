@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use EntityManager;
 use App\Http\Requests\StoreDreamRequest;
-use App\Repositories\DreamRepositoryInterface;
-use App\Repositories\UserRepositoryInterface;
+use App\Repositories\DreamRepository;
+use App\Repositories\UserRepository;
 use Auth;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -17,10 +17,9 @@ class DreamController extends Controller
     /**
      * Конструктор.
      *
-     * @param  DreamRepositoryInterface  $dreams
-     * @return void
+     * @param  DreamRepository  $dreams
      */
-    public function __construct(DreamRepositoryInterface $dreams)
+    public function __construct(DreamRepository $dreams)
     {
         $this->dreams = $dreams;
 
@@ -57,10 +56,10 @@ class DreamController extends Controller
      * Сохраняет новый сон.
      *
      * @param  StoreDreamRequest       $request
-     * @param  UserRepositoryInterface $users
+     * @param  UserRepository $users
      * @return RedirectResponse
      */
-    public function store(StoreDreamRequest $request, UserRepositoryInterface $users)
+    public function store(StoreDreamRequest $request, UserRepository $users)
     {
         $user = $users->find($request->input('user_id'));
 

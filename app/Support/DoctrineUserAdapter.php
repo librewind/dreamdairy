@@ -3,12 +3,13 @@
 namespace App\Support;
 
 use App\Entities\User;
+use App\Repositories\UserRepository;
 use Tymon\JWTAuth\Providers\User\UserInterface;
 
 class DoctrineUserAdapter implements UserInterface
 {
     /**
-     * @var \Illuminate\Database\Eloquent\Model
+     * @var UserRepository
      */
     protected $user;
 
@@ -27,7 +28,8 @@ class DoctrineUserAdapter implements UserInterface
      *
      * @param  mixed  $key
      * @param  mixed  $value
-     * @return User
+     *
+     * @return User|bool
      */
     public function getBy($key, $value)
     {
